@@ -304,3 +304,98 @@ export const CloseSearch = styled.button`
         display: block;
     }
 `;
+
+export const NotificationWrapper = styled.div`
+    position: relative;
+    display: flex;
+    align-items: center;
+`;
+
+export const NotificationBadge = styled.div`
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    background-color: #ef4444;
+    border-radius: 50%;
+    border: 2px solid #1e1a1e; 
+`;
+
+export const NotificationDropdown = styled.div`
+    position: absolute;
+    top: 45px;
+    right: 0;
+    width: 320px;
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow: hidden;
+    animation: 0.2s ease-out;
+
+    @media (max-width: 480px) {
+        position: fixed;
+        top: 60px;
+        right: 16px;
+        width: calc(100vw - 32px);
+    }
+`;
+
+export const NotificationHeader = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid #30363d;
+    background-color: rgba(255, 255, 255, 0.02);
+`;
+
+export const TitleNotifications = styled.span`
+    color: #f8fafc;
+    font-weight: 600;
+    font-size: 14px;
+`;
+
+export const ClearButton = styled.button`
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+        color: #f8fafc;
+    }
+`;
+
+export const NotificationContent = styled.div`
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+
+    svg {
+        margin-bottom: 8px;
+        opacity: 0.5;
+    }
+`;
+
+export const EmptyStateTitle = styled.p`
+    color: #f8fafc;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+`;
+
+export const EmptyStateSubText = styled.span`
+    color: #484f58;
+    font-size: 13px;
+    line-height: 1.4;
+    max-width: 200px;
+`;

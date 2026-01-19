@@ -9,6 +9,8 @@ export const Navbar = ({ onSearch }: { onSearch?: (text: string) => void }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
   const searchRef = useRef<HTMLDivElement>(null);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const notificationRef = useRef<HTMLDivElement>(null);
   const { signOut, user } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -23,6 +25,16 @@ export const Navbar = ({ onSearch }: { onSearch?: (text: string) => void }) => {
     setSearchText(text);
     if (onSearch) onSearch(text);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (notificationRef.current && !notificationRef.current.contains(event.target as Node)) {
+        setIsNotificationsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -103,11 +115,33 @@ export const Navbar = ({ onSearch }: { onSearch?: (text: string) => void }) => {
               </S.SearchInputContainer>
             </S.SearchDropdown>
           )}
-      </S.SearchWrapper>
+        </S.SearchWrapper>
         
-        <S.IconButton>
-          <IoNotificationsOutline />
-        </S.IconButton>
+        <S.NotificationWrapper ref={notificationRef}>
+          <S.IconButton onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}>
+            <IoNotificationsOutline />
+            <S.NotificationBadge />
+          </S.IconButton>
+
+          {isNotificationsOpen && (
+            <S.NotificationDropdown>
+              <S.NotificationHeader>
+                <S.TitleNotifications>Notificações</S.TitleNotifications>
+                <S.ClearButton onClick={() => setIsNotificationsOpen(false)}>
+                  Limpar
+                </S.ClearButton>
+              </S.NotificationHeader>
+              
+              <S.NotificationContent>
+                <IoNotificationsOutline size={40} color="#30363d" />
+                <S.EmptyStateTitle>Tudo limpo por aqui!</S.EmptyStateTitle>
+                <S.EmptyStateSubText>
+                  Você não tem novas notificações no momento.
+                </S.EmptyStateSubText>
+              </S.NotificationContent>
+            </S.NotificationDropdown>
+          )}
+        </S.NotificationWrapper>
 
         <S.ProfileContainer>
           <S.Avatar 
